@@ -5,11 +5,11 @@ export const useFetchData = (url: string) => {
     const [loading, setLoading] = useState<boolean>(true);
 
     const fetchData = async <T>(body: T, method: 'POST' | 'GET' = 'POST') => {
-        // return new Promise<string>(async (resolve, reject) => {
-        //     setTimeout(() => {
-        //         resolve('Data fetched successfully');
-        //     }, 3000);
-        // });
+        return new Promise<{status: number, message: string}>(async (resolve, reject) => {
+            setTimeout(() => {
+                resolve({status:200, message: "ok"});
+            }, 3000);
+        });
         try {
             const response = await fetch(url, {
                 method,
