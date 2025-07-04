@@ -3,16 +3,23 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import TextInput from "../../components/TextInput";
 import { FormProvider, useForm } from "react-hook-form";
 import { signUpSchema } from "@/app/schemas/sign-up-schema";
+import { useFetchData } from "@/app/api/useFetchData";
+import { URL_SIGN_UP } from "@/app/helpers/urls";
+
 
 export default function Home() {
+  const { fetchData } = useFetchData(URL_SIGN_UP);
   const methods = useForm({
     resolver: zodResolver(signUpSchema),
   });
 
-  const onSubmit = (data: SignUpFormData) => {
-    console.log("Form submitted:", data);
-    
-  }
+  const onSubmit = async (data: SignUpFormData) => {
+    console.log("Form submitted:", data, process.env.NEXT_PUBLIC_API_URL);
+    const resp = await fetchData<SignUpFormData>(data);
+   
+  };
+
+
 
   return (
     <main className="flex min-h-screen items-center justify-center bg-gradient-to-br from-purple-600 to-indigo-700 p-4">
