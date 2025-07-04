@@ -1,17 +1,26 @@
 'use client';
+import { zodResolver } from "@hookform/resolvers/zod";
 import TextInput from "../../components/TextInput";
 import { FormProvider, useForm } from "react-hook-form";
+import { signUpSchema } from "@/app/schemas/sign-up-schema";
 
 export default function Home() {
-  const methods = useForm();
+  const methods = useForm({
+    resolver: zodResolver(signUpSchema),
+  });
+
+  const onSubmit = (data: SignUpFormData) => {
+    console.log("Form submitted:", data);
+    
+  }
 
   return (
     <main className="flex min-h-screen items-center justify-center bg-gradient-to-br from-purple-600 to-indigo-700 p-4">
       <div className="w-full max-w-md rounded-2xl bg-white shadow-2xl p-8 space-y-6">
-        <h1 className="text-3xl font-bold text-center text-indigo-700">Login</h1>
+        <h1 className="text-3xl font-bold text-center text-indigo-700">Sign Up</h1>
         <FormProvider {...methods}>
-          <form className="space-y-4">
-             <TextInput
+          <form onSubmit={methods.handleSubmit(onSubmit)} className="space-y-4">
+            <TextInput
               label="Name"
               name="name"
               placeholder="Enter your name"
@@ -22,7 +31,7 @@ export default function Home() {
               label="Email"
               name="email"
               placeholder="Enter your email"
-              type="email"
+              type="text"
               value=""
             />
             <TextInput
@@ -32,9 +41,9 @@ export default function Home() {
               type="password"
               value=""
             />
-             <TextInput
-              label="Password"
-              name="password-2"
+            <TextInput
+              label="Confirm Password"
+              name="confirmPassword"
               placeholder="Enter your password"
               type="password"
               value=""

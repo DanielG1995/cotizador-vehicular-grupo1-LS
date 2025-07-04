@@ -1,3 +1,4 @@
+import { stringify } from "querystring";
 import { useFormContext } from "react-hook-form";
 
 interface Props {
@@ -27,7 +28,7 @@ export default function TextInput({ label, name, placeholder, type = "text" }: P
         className="rounded-lg border border-gray-300 text-black focus:ring-2 focus:ring-indigo-500 focus:outline-none px-4 py-2 transition-all duration-200 shadow-sm"
       />
       {errors[name] && (
-        <span className="text-sm text-red-500 mt-1">This field is required</span>
+        <span className="text-sm text-red-500 mt-1">{errors[name]?.message as string}</span>
       )}
     </div>
   );
