@@ -12,4 +12,13 @@ export const MESSAGES = {
     USER_NOT_REGISTERED: "Don't have an account?",
     SIGN_UP: "Sign Up",
     SIGN_IN: "Sign In",
+    PERSONAL_INFORMATION: "Personal Information",
+    IDENTIFICATION_NUMBER: "Identification Number",
+    TYPE_IDENTIFICATION: "Type of Identification",
+    CIVIL_STATUS: "Civil Status",
+    GENDER: "Gender",
+    BRAND: "Brand",
+    MODEL: "Model",
+    SUBMIT_FORM_BUTTON: "Submit Form",
+    VEHICLE_INFORMATION: "Vehicle Information",
 }
