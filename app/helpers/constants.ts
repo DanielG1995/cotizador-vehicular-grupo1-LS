@@ -49,3 +49,21 @@ export const SELECT_YEAR_OPTIONS = Array.from({ length: LAST_YEAR }, (_, i) => {
     const year = new Date().getFullYear() - i;
     return { label: year.toString(), value: year.toString() };
 });
+
+export const SELECT_PROVINCE_OPTIONS = [
+    { label: "Pichincha", value: "pichincha" },
+    { label: "Guayas", value: "guayas" },
+    { label: "Azuay", value: "azuay" },
+    { label: "Manabí", value: "manabi" },
+    { label: "El Oro", value: "el oro" },
+];
+
+export const SELECT_CITY_OPTIONS = [
+    { label: "Quito", value: "quito", code: "pichincha" },
+    { label: "Guayaquil", value: "guayaquil", code: "guayas" },
+    { label: "Cuenca", value: "cuenca", code: "azuay" },
+    { label: "Machala", value: "machala", code: "el oro" },
+    { label: "Manta", value: "manta", code: "manabi" },
+];
+
+export const MIN_YEARS_BIRTH = 18

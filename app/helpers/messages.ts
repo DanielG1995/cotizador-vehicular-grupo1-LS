@@ -11,6 +11,7 @@ export const MESSAGES = {
         INVALID_NUMBER: "Please enter a valid number.",
         MIN_PRICE: "Price must be greater than $5000.00.",
         REQUIRED_FIELD: "This field is required.",
+        INVALID_BIRTH_DATE: "Birth date must be a valid date and at least {minYears} years ago.",
     },
     USER_NOT_REGISTERED: "Don't have an account?",
     SIGN_UP: "Sign Up",
@@ -27,4 +28,8 @@ export const MESSAGES = {
     YEAR: "Year",
     PRICE: "Appraisal",
     SELECT_OPTION: "Select an option",
+    PROVINCE: "Province",
+    CITY: "City",
+    BIRTH_DATE: "Birth Date",
+
 }

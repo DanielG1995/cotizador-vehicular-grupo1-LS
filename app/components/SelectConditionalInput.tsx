@@ -29,7 +29,6 @@ export default function SelectConditionalInput<T>({ label, name, placeholder, de
     const [options, setOptions] = useState<Option<T>[]>(defaultOptions);
 
     useEffect(() => {
-        console.log("Selected value changed:", selectedValue, baseOptions);
         if (selectedValue) {
             setOptions(baseOptions.filter(option => option.code === selectedValue));
         }
