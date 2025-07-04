@@ -42,3 +42,10 @@ export const SELECT_GENDER_OPTIONS = [
     { label: "Masculino", value: "M" },
     { label: "Femenino", value: "F" }
 ];
+
+export const LAST_YEAR = 12
+
+export const SELECT_YEAR_OPTIONS = Array.from({ length: LAST_YEAR }, (_, i) => {
+    const year = new Date().getFullYear() - i;
+    return { label: year.toString(), value: year.toString() };
+});

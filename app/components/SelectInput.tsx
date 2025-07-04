@@ -1,4 +1,5 @@
 import { useFormContext } from "react-hook-form";
+import { MESSAGES } from "../helpers/messages";
 
 interface Option<T> {
     value: string;
@@ -16,7 +17,7 @@ interface Props<T> {
     disabled?: boolean;
 }
 
-export default function SelectInput<T>({ label, name, options }: Props<T>) {
+export default function SelectInput<T>({ label, name, options, placeholder }: Props<T>) {
     const {
         register,
         formState: { errors },
@@ -30,9 +31,13 @@ export default function SelectInput<T>({ label, name, options }: Props<T>) {
             <select
                 disabled={disabled}
                 id={name}
+                defaultValue={""}
                 {...register(name, { required: true })}
                 className={`rounded-lg border border-gray-300 text-black focus:ring-2 focus:ring-indigo-500 focus:outline-none px-4 py-2 transition-all duration-200 shadow-sm ${disabled ? 'bg-gray-200 cursor-not-allowed' : ''}`}
             >
+                <option value="" disabled>
+                    {MESSAGES.SELECT_OPTION || placeholder}
+                </option>
                 {options.map((option, index) => (
                     <option key={index} value={option.value}>
                         {option.label}

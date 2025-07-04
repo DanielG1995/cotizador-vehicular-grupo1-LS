@@ -8,6 +8,9 @@ export const MESSAGES = {
         INVALID_EMAIL_FORMAT: "Invalid email address",
         PASSWORD_TOO_SHORT: "Password must be at least 6 characters long",
         NAME_TOO_SHORT: "Name must be at least 2 characters long",
+        INVALID_NUMBER: "Please enter a valid number.",
+        MIN_PRICE: "Price must be greater than $5000.00.",
+        REQUIRED_FIELD: "This field is required.",
     },
     USER_NOT_REGISTERED: "Don't have an account?",
     SIGN_UP: "Sign Up",
@@ -21,4 +24,7 @@ export const MESSAGES = {
     MODEL: "Model",
     SUBMIT_FORM_BUTTON: "Submit Form",
     VEHICLE_INFORMATION: "Vehicle Information",
+    YEAR: "Year",
+    PRICE: "Appraisal",
+    SELECT_OPTION: "Select an option",
 }

@@ -10,11 +10,16 @@ import {
   SELECT_MARCA_OPTIONS,
   SELECT_MODELO_OPTIONS,
   SELECT_TIPO_IDENTIFICACION_OPTIONS,
+  SELECT_YEAR_OPTIONS,
 } from "../helpers/constants";
 import { MESSAGES } from "../helpers/messages";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { formSchema } from "../schemas/form-schema";
 
 export default function Home() {
-  const methods = useForm();
+   const methods = useForm({
+      resolver: zodResolver(formSchema),
+    });
 
   const onSubmit = (data: any) => {
     console.log("Formulario enviado:", data);
@@ -41,7 +46,7 @@ export default function Home() {
 
                 <SelectInput
                   label={MESSAGES.TYPE_IDENTIFICATION}
-                  name="tipoIdentificacion"
+                  name="typeIdentification"
                   placeholder="Selecciona un tipo"
                   type="text"
                   options={SELECT_TIPO_IDENTIFICACION_OPTIONS}
@@ -50,7 +55,7 @@ export default function Home() {
 
                 <TextInput
                   label={MESSAGES.IDENTIFICATION_NUMBER}
-                  name="id"
+                  name="identificationNumber"
                   type="text"
                   value=""
                 />
@@ -96,6 +101,22 @@ export default function Home() {
                   baseOptions={SELECT_MODELO_OPTIONS}
                   nameListener={"brand"}
                 />
+                <SelectInput
+                  label={MESSAGES.YEAR}
+                  name="year"
+                  placeholder=""
+                  type="text"
+                  options={SELECT_YEAR_OPTIONS}
+                  value=""
+                />
+                 <TextInput
+                  label={MESSAGES.PRICE}
+                  name="price"
+                  placeholder=""
+                  type="number"
+                  value={0}
+                />
+
               </div>
             </div>
 
