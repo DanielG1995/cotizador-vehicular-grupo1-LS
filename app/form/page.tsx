@@ -20,15 +20,44 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { formSchema } from "../schemas/form-schema";
 import DateInput from "../components/DateInput";
 import { redirect } from "next/navigation";
+import { useFetchData } from "../api/useFetchData";
+import { URL_SAVE_FORM } from "../helpers/urls";
+import { toast } from "sonner";
+import { PLANS_ROUTE } from "../helpers/routes";
 
 export default function Home() {
   const methods = useForm({
     resolver: zodResolver(formSchema),
   });
 
+  const { fetchDataPrivate } = useFetchData(URL_SAVE_FORM);
+
   const onSubmit = (data: any) => {
-    console.log("Formulario enviado:", data);
-    redirect('/form/plans?id=idNNumberfromService');
+    try {
+      const resp = toast.promise(
+        fetchDataPrivate<SignUpFormData>(data).then((response) => {
+          if (response instanceof Error) {
+            throw response;
+          }
+
+        }),
+        {
+          loading: "Loading...",
+          success: MESSAGES.SAVE_FORM,
+          error: (err) => {
+            if (err instanceof Error) {
+              return err.message;
+            }
+            return MESSAGES.SAVE_FORM_FAILED;
+          },
+        }
+      );
+      resp.unwrap().then(() => { redirect(PLANS_ROUTE); });
+    } catch (error) {
+      toast.error(MESSAGES.SAVE_FORM_FAILED);
+    }
+
+
   };
 
   return (

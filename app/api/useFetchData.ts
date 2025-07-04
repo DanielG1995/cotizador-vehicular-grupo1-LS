@@ -1,5 +1,8 @@
 'use client';
+import { redirect } from "next/navigation";
 import { useState } from "react";
+import { LOGIN_ROUTE } from "../helpers/routes";
+import { toast } from "sonner";
 
 export const useFetchData = (url: string) => {
     const [loading, setLoading] = useState<boolean>(true);
@@ -33,7 +36,8 @@ export const useFetchData = (url: string) => {
         try {
             const userSession = session ? JSON.parse(session) : null;
             if (!userSession || !userSession.token) {
-                throw new Error("No session found");
+                toast.error("You must be logged in to perform this action.");
+                redirect(LOGIN_ROUTE)
             }
             const response = await fetch(process.env.NEXT_PUBLIC_API_URL + url, {
                 method,

@@ -42,8 +42,39 @@ const samplePlans: Plan[] = [
     ],
   },
 ];
+const random= Math.random() * (100 - 1);
 
 export default function PlansPage() {
+  
+  const samplePlans: Plan[] = [
+  {
+    name: "Plan Básico",
+    price: 25.99+random,
+    coverages: [
+      { name: "Daños a terceros", value: 5000 },
+      { name: "Robo parcial", value: 2000 },
+    ],
+  },
+  {
+    name: "Plan Premium",
+    price: 49.99+random,
+    coverages: [
+      { name: "Daños a terceros", value: 10000 },
+      { name: "Robo total", value: 15000 },
+      { name: "Asistencia en carretera", value: 3000 },
+    ],
+  },
+  {
+    name: "Plan Full Cobertura",
+    price: 79.99+random,
+    coverages: [
+      { name: "Todo riesgo", value: 25000 },
+      { name: "Daños personales", value: 10000 },
+      { name: "Robo total", value: 15000 },
+      { name: "Asistencia legal", value: 5000 },
+    ],
+  },
+];
   return (
     <main className="min-h-screen bg-gradient-to-br from-purple-600 to-indigo-700 p-6">
       <div className="max-w-6xl mx-auto">
@@ -84,7 +115,7 @@ export default function PlansPage() {
               </div>
 
               <button className="mt-6 w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 rounded-xl transition duration-300">
-                Seleccionar Plan
+                Choose Plan
               </button>
             </div>
           ))}

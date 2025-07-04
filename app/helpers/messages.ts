@@ -36,4 +36,6 @@ export const MESSAGES = {
     SIGN_UP_SUCCESS: "User created successfully!",
     PLAN_SELECTION_TITLE: "Select a Plan",
     PLAN_SELECTION_DESCRIPTION: "Choose the plan that best suits your needs.",
+    SAVE_FORM: "Form saved successfully!",
+    SAVE_FORM_FAILED: "Failed to save form.",
 }
