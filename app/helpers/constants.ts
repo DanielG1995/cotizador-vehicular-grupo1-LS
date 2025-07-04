@@ -67,3 +67,11 @@ export const SELECT_CITY_OPTIONS = [
 ];
 
 export const MIN_YEARS_BIRTH = 18
+
+export const RESPONSE_HTTP_STATUS = {
+    400: "Bad Request",
+    401: "Unauthorized",
+    403: "Forbidden",
+    404: "Not Found",
+    409: "User already exists",
+}

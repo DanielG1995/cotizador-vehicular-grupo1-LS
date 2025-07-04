@@ -18,13 +18,20 @@ export default function Home() {
   });
 
   const onSubmit = async (data: SignUpFormData) => {
-    const resp = await fetchData<SignUpFormData>(data);
-    if (resp instanceof Error) {
-      toast.error(resp.message);
-      return;
-    }
-    toast.success(MESSAGES.SIGN_UP_SUCCESS);
-    methods.reset();
+    toast.promise(
+      fetchData<SignUpFormData>(data),
+      {
+        loading: "Loading...",
+        success: MESSAGES.SIGN_UP_SUCCESS,
+        error: (err) => {
+          if (err instanceof Error) {
+            return err.message;
+          }
+          return MESSAGES.USER_REGISTER_FAILED;
+        },
+      }
+    );
+
     redirect(LOGIN_ROUTE);
   };
 
@@ -66,7 +73,7 @@ export default function Home() {
               type="submit"
               className="w-full rounded-xl bg-indigo-600 hover:bg-indigo-700 transition-all duration-300 text-white font-semibold py-3 mt-4"
             >
-              Sign Up
+              {MESSAGES.SIGN_UP}
             </button>
           </form>
         </FormProvider>

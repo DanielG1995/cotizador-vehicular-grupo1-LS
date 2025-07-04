@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export const useFetchData = (url: string) => {
     const [loading, setLoading] = useState<boolean>(true);
@@ -13,22 +13,25 @@ export const useFetchData = (url: string) => {
                 },
                 body: method === 'POST' ? JSON.stringify(body) : undefined,
             });
-            if (response.status >= 400  ) {
+             const data = await response.json();
+            if (response.status >= 400) {
+                if (data?.error?.message)
+                    return new Error(data.error.message);
                 return new Error(`HTTP error! status: ${response.status} `);
             }
-            return await response.json();
+            return data;
         } catch (err) {
-           return Promise.reject(err)
+            return Promise.reject(err)
         } finally {
             setLoading(false);
         }
     };
 
-     const fetchDataPrivate = async <T>(body: T, method: 'POST' | 'GET' = 'POST') => {
+    const fetchDataPrivate = async <T>(body: T, method: 'POST' | 'GET' = 'POST') => {
         const session = localStorage.getItem("session");
 
         try {
-            const userSession= session ? JSON.parse(session) : null;
+            const userSession = session ? JSON.parse(session) : null;
             if (!userSession || !userSession.token) {
                 throw new Error("No session found");
             }
@@ -39,13 +42,16 @@ export const useFetchData = (url: string) => {
                     "Content-Type": "application/json",
                 },
                 body: method === 'POST' ? JSON.stringify(body) : undefined,
-            });
-            if (response.status >= 400  ) {
+            })
+            const data = await response.json();
+            if (response.status >= 400) {
+                if (data?.error?.message)
+                    return new Error(data.error.message);
                 return new Error(`HTTP error! status: ${response.status} `);
             }
-            return await response.json();
+            return data;
         } catch (err) {
-           return Promise.reject(err)
+            return Promise.reject(err)
         } finally {
             setLoading(false);
         }

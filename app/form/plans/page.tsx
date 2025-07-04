@@ -1,5 +1,7 @@
 'use client';
 
+import { MESSAGES } from "@/app/helpers/messages";
+
 type Coverage = {
   name: string;
   value: number;
@@ -46,7 +48,7 @@ export default function PlansPage() {
     <main className="min-h-screen bg-gradient-to-br from-purple-600 to-indigo-700 p-6">
       <div className="max-w-6xl mx-auto">
         <h1 className="text-3xl font-bold text-white text-center mb-10">
-          Planes de Cotización
+          {MESSAGES.PLAN_SELECTION_TITLE}
         </h1>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

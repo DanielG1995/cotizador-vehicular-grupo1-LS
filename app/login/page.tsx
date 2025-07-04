@@ -30,7 +30,7 @@ export default function Home() {
   return (
     <main className="flex min-h-screen items-center justify-center bg-gradient-to-br from-purple-600 to-indigo-700 p-4">
       <div className="w-full max-w-md rounded-2xl bg-white shadow-2xl p-8 space-y-6">
-        <h1 className="text-3xl font-bold text-center text-indigo-700">Login</h1>
+        <h1 className="text-3xl font-bold text-center text-indigo-700">{MESSAGES.LOGIN}</h1>
         <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(onSubmit)} className="space-y-4">
             <TextInput
@@ -51,7 +51,7 @@ export default function Home() {
               type="submit"
               className="w-full rounded-xl bg-indigo-600 hover:bg-indigo-700 transition-all duration-300 text-white font-semibold py-3 mt-4"
             >
-              Sign In
+              {MESSAGES.LOGIN}
             </button>
           </form>
           <p className="text-center text-gray-600 mt-4">
