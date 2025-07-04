@@ -5,6 +5,8 @@ import { FormProvider, useForm } from "react-hook-form";
 import { signUpSchema } from "@/app/schemas/sign-up-schema";
 import { useFetchData } from "@/app/api/useFetchData";
 import { URL_SIGN_UP } from "@/app/helpers/urls";
+import { toast } from "sonner";
+import { redirect } from "next/navigation";
 
 
 export default function Home() {
@@ -14,12 +16,15 @@ export default function Home() {
   });
 
   const onSubmit = async (data: SignUpFormData) => {
-    console.log("Form submitted:", data, process.env.NEXT_PUBLIC_API_URL);
     const resp = await fetchData<SignUpFormData>(data);
-   
+    if (resp instanceof Error) {
+      toast.error(resp.message);
+      return;
+    }
+    toast.success("User registered successfully!");
+    methods.reset();
+    redirect('/login');
   };
-
-
 
   return (
     <main className="flex min-h-screen items-center justify-center bg-gradient-to-br from-purple-600 to-indigo-700 p-4">

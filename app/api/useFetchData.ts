@@ -18,18 +18,12 @@ export const useFetchData = (url: string) => {
                 },
                 body: method === 'POST' ? JSON.stringify(body) : undefined,
             });
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+            if (response.status >= 400  ) {
+                return new Error(`HTTP error! status: ${response.status} `);
             }
             return await response.json();
         } catch (err) {
-            if (err instanceof Error) {
-                setError(err.message);
-            } else if (typeof err === "string") {
-                setError(err);
-            } else {
-                setError("An unknown error occurred");
-            }
+           return Promise.reject(err)
         } finally {
             setLoading(false);
         }
