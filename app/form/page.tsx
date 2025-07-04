@@ -4,29 +4,22 @@ import { FormProvider, useForm } from "react-hook-form";
 import TextInput from "../components/TextInput";
 import SelectInput from "../components/SelectInput";
 import SelectConditionalInput from "../components/SelectConditionalInput";
-import DateInput from "../components/DateInput";
-import { zodResolver } from "@hookform/resolvers/zod";
-
 import {
+  MIN_YEARS_BIRTH,
+  SELECT_CITY_OPTIONS,
   SELECT_CIVIL_STATUS_OPTIONS,
   SELECT_GENDER_OPTIONS,
   SELECT_MARCA_OPTIONS,
   SELECT_MODELO_OPTIONS,
   SELECT_PROVINCE_OPTIONS,
-  SELECT_CITY_OPTIONS,
   SELECT_TIPO_IDENTIFICACION_OPTIONS,
   SELECT_YEAR_OPTIONS,
-  MIN_YEARS_BIRTH,
 } from "../helpers/constants";
 import { MESSAGES } from "../helpers/messages";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { formSchema } from "../schemas/form-schema";
-
-// 🧠 Utilidad para calcular la fecha máxima de nacimiento
-const getMaxBirthDate = (): string => {
-  const date = new Date();
-  date.setFullYear(date.getFullYear() - MIN_YEARS_BIRTH);
-  return date.toISOString().split("T")[0];
-};
+import DateInput from "../components/DateInput";
+import { redirect } from "next/navigation";
 
 export default function Home() {
   const methods = useForm({
@@ -35,23 +28,24 @@ export default function Home() {
 
   const onSubmit = (data: any) => {
     console.log("Formulario enviado:", data);
+    redirect('/form/plans?id=idNNumberfromService');
   };
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-gradient-to-br from-purple-600 to-indigo-700 p-6">
+    <main className="flex min-h-screen items-center justify-center bg-gradient-to-br from-purple-600 to-indigo-700 p-4">
       <FormProvider {...methods}>
-        <div className="w-full max-w-6xl">
+        <div className="w-full max-w-5xl">
           <form
             onSubmit={methods.handleSubmit(onSubmit)}
-            className="bg-white rounded-3xl shadow-2xl px-10 py-12 w-full animate-fade-in"
+            className="bg-white rounded-2xl shadow-2xl p-8 w-full animate-fade-in flex flex-col items-center"
           >
-            <h2 className="text-3xl font-bold text-gray-800 text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-800 text-center mb-8">
               {MESSAGES.SUBMIT_FORM_BUTTON}
             </h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
               {/* 🧍 Información Personal */}
-              <section className="space-y-6">
+              <div className="space-y-4">
                 <h3 className="text-xl font-semibold text-indigo-700 border-b pb-2">
                   {MESSAGES.PERSONAL_INFORMATION}
                 </h3>
@@ -75,6 +69,7 @@ export default function Home() {
                 <SelectInput
                   label={MESSAGES.GENDER}
                   name="gender"
+                  placeholder=""
                   type="text"
                   options={SELECT_GENDER_OPTIONS}
                   value=""
@@ -84,12 +79,13 @@ export default function Home() {
                   name="birthDate"
                   label={MESSAGES.BIRTH_DATE}
                   required
-                  max={getMaxBirthDate()}
+                  maxDate={new Date().setFullYear(new Date().getFullYear() - MIN_YEARS_BIRTH)}
                 />
 
                 <SelectInput
                   label={MESSAGES.CIVIL_STATUS}
                   name="civilStatus"
+                  placeholder=""
                   type="text"
                   options={SELECT_CIVIL_STATUS_OPTIONS}
                   value=""
@@ -98,6 +94,7 @@ export default function Home() {
                 <SelectInput
                   label={MESSAGES.PROVINCE}
                   name="province"
+                  placeholder=""
                   options={SELECT_PROVINCE_OPTIONS}
                   value=""
                 />
@@ -105,15 +102,16 @@ export default function Home() {
                 <SelectConditionalInput
                   label={MESSAGES.CITY}
                   name="city"
+                  placeholder=""
                   nameListener="province"
                   defaultOptions={[]}
                   baseOptions={SELECT_CITY_OPTIONS}
                   value=""
                 />
-              </section>
+              </div>
 
               {/* 🚗 Información del Vehículo */}
-              <section className="space-y-6">
+              <div className="space-y-4">
                 <h3 className="text-xl font-semibold text-indigo-700 border-b pb-2">
                   {MESSAGES.VEHICLE_INFORMATION}
                 </h3>
@@ -132,30 +130,32 @@ export default function Home() {
                   value=""
                   defaultOptions={[]}
                   baseOptions={SELECT_MODELO_OPTIONS}
-                  nameListener="brand"
+                  nameListener={"brand"}
                 />
-
                 <SelectInput
                   label={MESSAGES.YEAR}
                   name="year"
+                  placeholder=""
                   type="text"
                   options={SELECT_YEAR_OPTIONS}
                   value=""
                 />
-
                 <TextInput
                   label={MESSAGES.PRICE}
                   name="price"
+                  placeholder=""
                   type="number"
                   value={0}
                 />
-              </section>
+
+              </div>
             </div>
 
-            <div className="mt-12 w-full flex justify-center">
+            {/* Botón de envío */}
+            <div className="mt-8 w-full flex justify-center">
               <button
                 type="submit"
-                className="px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl shadow-lg transition duration-300 ease-in-out"
+                className="px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl shadow-md transition duration-300 ease-in-out"
               >
                 {MESSAGES.SUBMIT_FORM_BUTTON}
               </button>

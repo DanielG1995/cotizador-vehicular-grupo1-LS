@@ -7,6 +7,8 @@ import { useFetchData } from "@/app/api/useFetchData";
 import { URL_SIGN_UP } from "@/app/helpers/urls";
 import { toast } from "sonner";
 import { redirect } from "next/navigation";
+import { LOGIN_ROUTE } from "@/app/helpers/routes";
+import { MESSAGES } from "@/app/helpers/messages";
 
 
 export default function Home() {
@@ -21,9 +23,9 @@ export default function Home() {
       toast.error(resp.message);
       return;
     }
-    toast.success("User registered successfully!");
+    toast.success(MESSAGES.SIGN_UP_SUCCESS);
     methods.reset();
-    redirect('/login');
+    redirect(LOGIN_ROUTE);
   };
 
   return (

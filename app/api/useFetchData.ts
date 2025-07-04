@@ -1,17 +1,12 @@
+'use client';
 import { useEffect, useState } from "react";
 
 export const useFetchData = (url: string) => {
-    const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
 
     const fetchData = async <T>(body: T, method: 'POST' | 'GET' = 'POST') => {
-        return new Promise<{status: number, message: string}>(async (resolve, reject) => {
-            setTimeout(() => {
-                resolve({status:200, message: "ok"});
-            }, 3000);
-        });
         try {
-            const response = await fetch(url, {
+            const response = await fetch(process.env.NEXT_PUBLIC_API_URL + url, {
                 method,
                 headers: {
                     "Content-Type": "application/json",
@@ -29,7 +24,34 @@ export const useFetchData = (url: string) => {
         }
     };
 
-    return { error, loading, fetchData };
+     const fetchDataPrivate = async <T>(body: T, method: 'POST' | 'GET' = 'POST') => {
+        const session = localStorage.getItem("session");
+
+        try {
+            const userSession= session ? JSON.parse(session) : null;
+            if (!userSession || !userSession.token) {
+                throw new Error("No session found");
+            }
+            const response = await fetch(process.env.NEXT_PUBLIC_API_URL + url, {
+                method,
+                headers: {
+                    "Authorization": `Bearer ${userSession.token}`,
+                    "Content-Type": "application/json",
+                },
+                body: method === 'POST' ? JSON.stringify(body) : undefined,
+            });
+            if (response.status >= 400  ) {
+                return new Error(`HTTP error! status: ${response.status} `);
+            }
+            return await response.json();
+        } catch (err) {
+           return Promise.reject(err)
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    return { loading, fetchData, fetchDataPrivate };
 
 
 };

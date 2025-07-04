@@ -1,2 +1,2 @@
-export const URL_SIGN_UP = "/sign-up";
-export const URL_SIGN_IN = "/sign-in";
+export const URL_SIGN_UP = "v1/auth/register";
+export const URL_SIGN_IN = "v1/auth/login";

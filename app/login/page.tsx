@@ -21,8 +21,11 @@ export default function Home() {
       toast.error(resp.message);
       return;
     }
-    redirect('/form');
-  };
+    if (resp?.data?.token) {
+      localStorage.setItem("session", JSON.stringify({ ...resp?.data?.user, token: resp?.data?.token }));
+      redirect('/form');
+    }
+  }
 
   return (
     <main className="flex min-h-screen items-center justify-center bg-gradient-to-br from-purple-600 to-indigo-700 p-4">
@@ -53,7 +56,7 @@ export default function Home() {
           </form>
           <p className="text-center text-gray-600 mt-4">
             {MESSAGES.USER_NOT_REGISTERED}{" "}
-            <a href="/sign-up" className="text-indigo-600 hover:underline">
+            <a href="/login/sign-up" className="text-indigo-600 hover:underline">
               {MESSAGES.SIGN_UP}
             </a>
           </p>

@@ -31,5 +31,9 @@ export const MESSAGES = {
     PROVINCE: "Province",
     CITY: "City",
     BIRTH_DATE: "Birth Date",
-
+    LOGIN: "Login",
+    LOGOUT: "Logout",
+    SIGN_UP_SUCCESS: "User created successfully!",
+    PLAN_SELECTION_TITLE: "Select a Plan",
+    PLAN_SELECTION_DESCRIPTION: "Choose the plan that best suits your needs.",
 }
